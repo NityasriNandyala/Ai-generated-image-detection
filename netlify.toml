@@ -1,0 +1,11 @@
+﻿[[redirects]]
+  from = ''/DetectionApp/*''
+  to = ''https://YOUR-APP.onrender.com/DetectionApp/:splat''
+  status = 200
+  force = true
+
+[[redirects]]
+  from = ''/*''
+  to = ''https://YOUR-APP.onrender.com/:splat''
+  status = 200
+  force = true

@@ -1,0 +1,146 @@
+﻿{% load static %}
+<html>
+<head>
+<meta http-equiv=content-type content=text/html; charset=utf-8 />
+<title>Sign Up - Detecting AI-Generated Images</title>
+<meta name=keywords content=" />
+<link href={% static 'default.css' %} rel=stylesheet type=text/css media=screen />
+<style>
+body {
+ background-image: url({% static 'images/back.jpg' %});
+}
+.signup-card {
+ background: rgba(255,255,255,0.93);
+ border-radius: 12px;
+ padding: 30px 40px;
+ max-width: 460px;
+ margin: 0 auto;
+ box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+.signup-card h2 {
+ text-align: center;
+ color: #1a237e;
+ margin-bottom: 18px;
+ font-size: 22px;
+ letter-spacing: 1px;
+}
+.signup-card table { width: 100%; }
+.signup-card td { padding: 6px 4px; vertical-align: middle; }
+.signup-card input[type=text],
+.signup-card input[type=email],
+.signup-card input[type=password] {
+ width: 220px;
+ padding: 7px 10px;
+ border: 1px solid #90caf9;
+ border-radius: 6px;
+ font-size: 14px;
+ outline: none;
+ transition: border 0.2s;
+}
+.signup-card input:focus { border-color: #1565c0; }
+.signup-card .btn-row { text-align: center; margin-top: 14px; }
+.signup-btn {
+ background: #1565c0;
+ color: #fff;
+ border: none;
+ padding: 9px 38px;
+ border-radius: 7px;
+ font-size: 15px;
+ cursor: pointer;
+ transition: background 0.2s;
+ letter-spacing: 0.5px;
+}
+.signup-btn:hover { background: #0d47a1; }
+.msg-error { color: #c62828; font-weight: bold; text-align: center; margin-bottom: 10px; }
+.msg-success { color: #2e7d32; font-weight: bold; text-align: center; margin-bottom: 10px; }
+.login-link { text-align: center; margin-top: 14px; font-size: 13px; color: #555; }
+.login-link a { color: #1565c0; text-decoration: none; font-weight: bold; }
+.login-link a:hover { text-decoration: underline; }
+.field-label { font-size: 14px; color: #333; font-weight: 600; white-space: nowrap; }
+</style>
+<script>
+function validateSignup(f) {
+ if (!f.t1.value.trim()) { alert(Please enter your full name.); f.t1.focus(); return false; }
+ if (!f.t2.value.trim()) { alert(Please enter your email.); f.t2.focus(); return false; }
+ var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+ if (!emailRe.test(f.t2.value)) { alert(Please enter a valid email address.); f.t2.focus(); return false; }
+ if (!f.t3.value.trim()) { alert(Please enter a username.); f.t3.focus(); return false; }
+ if (f.t4.value.length < 6) { alert(Password must be at least 6 characters.); f.t4.focus(); return false; }
+ if (f.t4.value !== f.t5.value) { alert(Passwords do not match.); f.t5.focus(); return false; }
+ return true;
+}
+</script>
+</head>
+<body>
+<!-- start header -->
+<div id=header>
+ <div id=logo>
+ <h1><span><center><font size=5 color=white><br/>Detecting AI-Generated images with CNN &amp; Interpretation using Explainable AI</font></center></span></h1>
+ </div>
+ <div id=menu>
+ <ul id=main>
+ <li><a href={% url 'index' %}><font size=4 color=white>Home</font></a></li><td></td>
+ <li><a href={% url 'UserLogin' %}><font size=4 color=white>User Login</font></a></li><td></td>
+ <li class=current_page_item><a href={% url 'UserSignup' %}><font size=4 color=white>Sign Up</font></a></li><td></td>
+ </ul>
+ </div>
+</div>
+
+<div id=wrapper>
+ <div id=page>
+ <div id=content>
+ <div class=flower><img src={% static 'images/tra.jpg' %} alt= width=800 height=200 /></div>
+ <br/><br/>
+
+ <div class=signup-card>
+ <h2>&#128100; Create Your Account</h2>
+
+ {% if data %}
+ {% if error %}
+ <p class=msg-error>&#10060; {{ data }}</p>
+ {% else %}
+ <p class=msg-success>&#10003; {{ data }}</p>
+ {% endif %}
+ {% endif %}
+
+ <form name=signupForm method=post action={% url 'UserSignupAction' %} onsubmit=return validateSignup(this)>
+ {% csrf_token %}
+ <table>
+ <tr>
+ <td class=field-label>Full Name</td>
+ <td><input type=text name=t1 placeholder=Enter your full name maxlength=100 /></td>
+ </tr>
+ <tr>
+ <td class=field-label>Email</td>
+ <td><input type=email name=t2 placeholder=Enter your email maxlength=150 /></td>
+ </tr>
+ <tr>
+ <td class=field-label>Username</td>
+ <td><input type=text name=t3 placeholder=Choose a username maxlength=100 /></td>
+ </tr>
+ <tr>
+ <td class=field-label>Password</td>
+ <td><input type=password name=t4 placeholder=Min. 6 characters maxlength=128 /></td>
+ </tr>
+ <tr>
+ <td class=field-label>Confirm Password</td>
+ <td><input type=password name=t5 placeholder=Re-enter password maxlength=128 /></td>
+ </tr>
+ </table>
+ <div class=btn-row>
+ <button type=submit class=signup-btn>&#10003; Create Account</button>
+ </div>
+ </form>
+
+ <div class=login-link>
+ Already have an account? <a href={% url 'UserLogin' %}>Login here</a>
+ </div>
+ </div>
+
+ <br/><br/>
+ </div>
+ <div style=clear: both;>&nbsp;</div>
+ </div>
+</div>
+</body>
+</html>
