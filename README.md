@@ -3,7 +3,7 @@
 > A web-based application for detecting whether an image is **real or AI-generated**, with **Explainable AI (XAI)** visualizations to help users understand the model's prediction.
 
 ---
-
+ **LIVE DEMO** :https://ai-generated-image-detection-rxkk.onrender.com
 ## 📌 Overview
 
 **AI-Generated Image Detection + XAI Visibility** is a Django-based machine learning application designed to identify AI-generated images.
